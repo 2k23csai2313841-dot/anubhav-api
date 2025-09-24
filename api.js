@@ -9,33 +9,40 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// API endpoint to send email
+
+
+// API endpoint
 app.post("/send-email", async (req, res) => {
   const { to, subject, message } = req.body;
 
+  if (!to || !subject || !message) {
+    return res.json({ success: false, error: "Missing required fields" });
+  }
+
   try {
-    // Create transporter
-    let transporter = nodemailer.createTransport({
-      service: "gmail", // or smtp config
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Send mail
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"Anubhav API" <${process.env.EMAIL_USER}>`,
       to,
       subject,
-      text: message,
+      text: message.replace(/<[^>]+>/g, ""),
+      html:  message,
     });
 
-    res.json({ success: true });
+    res.json({ success: true, message: "Email sent successfully!" });
   } catch (err) {
     console.error(err);
     res.json({ success: false, error: err.message });
   }
 });
 
-app.listen(5000, () => console.log("API running on http://localhost:5000"));
+app.listen(5000, () =>
+  console.log("✅ Mail API running on http://localhost:5000")
+);
