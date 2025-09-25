@@ -33,7 +33,6 @@ const transporter = nodemailer.createTransport({
   },
   requireTLS: true // This is the key part for port 587
 });
-});
 
 
 
@@ -56,6 +55,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`✅ ${process.env.EMAIL_PASS} Anubhav Mail API running on port ${PORT}`)
 );
+
 
 
 
