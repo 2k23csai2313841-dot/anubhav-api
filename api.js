@@ -43,8 +43,9 @@ app.post("/send-email", async (req, res) => {
 });
 
 app.listen(5000, () =>
-  console.log("✅ Mail API running on http://localhost:5000")
+  console.log("✅ Anubhav  Mail API running on http://localhost:5000")
 );
+
 
 
 
