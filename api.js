@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/debug-env", (req, res) => {
   res.json({
     EMAIL_USER: process.env.EMAIL_USER,
-    EMAIL_PASS: process.env.EMAIL_PASS ? "**** (set)" : "not set"
+    EMAIL_PASS: process.env.EMAIL_PASS,
   });
 });
 
@@ -56,8 +56,9 @@ app.post("/send-email", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
-  console.log(`✅ Anubhav Mail API running on port ${PORT}`)
+  console.log(`✅ ${process.env.EMAIL_PASS} Anubhav Mail API running on port ${PORT}`)
 );
+
 
 
 
