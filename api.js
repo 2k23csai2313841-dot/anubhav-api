@@ -9,12 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/debug-env", (req, res) => {
-  res.json({
-    EMAIL_USER: process.env.EMAIL_USER,
-    EMAIL_PASS: process.env.EMAIL_PASS,
-  });
-});
+
 
 // API endpoint
 app.post("/send-email", async (req, res) => {
@@ -27,15 +22,17 @@ app.post("/send-email", async (req, res) => {
   try {
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true, // Use true for port 465
+  port: 587,
+  secure: false, // Use false for port 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
   },
   tls: {
     rejectUnauthorized: false
-  }
+  },
+  requireTLS: true // This is the key part for port 587
+});
 });
 
 
@@ -59,6 +56,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`✅ ${process.env.EMAIL_PASS} Anubhav Mail API running on port ${PORT}`)
 );
+
 
 
 
