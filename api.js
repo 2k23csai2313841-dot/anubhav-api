@@ -11,10 +11,10 @@ app.use(express.json());
 
 app.get("/",(req,res)=>{
 res.send("Anubhav Api");
-}
+});
 app.get("/send-email",(req,res)=>{
 res.send("Anubhav Api");
-}
+});
 // API endpoint
 app.post("/send-email", async (req, res) => {
   const { to, subject, message } = req.body;
@@ -50,6 +50,5 @@ app.post("/send-email", async (req, res) => {
 app.listen(5000, () =>
   console.log("✅ Mail API running on http://localhost:5000")
 );
-
 
 
